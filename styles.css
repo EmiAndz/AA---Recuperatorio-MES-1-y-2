@@ -1,0 +1,141 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  display: grid;
+  gap: 0; /* Remove gaps between grid items */
+}
+
+.header {
+  grid-area: header;
+  background-color: #0f172a;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.menu {
+  grid-area: menu;
+  background-color: #ef4444;
+  color: white;
+  display: grid;
+  place-items: center;
+}
+
+.hero {
+  grid-area: hero;
+  background-color: #3b82f6;
+  color: white;
+  display: grid;
+  place-items: center;
+  min-height: 45vh;
+}
+
+.main {
+  grid-area: main;
+  background-color: #1e293b;
+  color: white;
+  display: grid;
+  place-items: center;
+  min-height: 28vh;
+}
+
+.banner {
+  grid-area: banner;
+  background-color: #facc15;
+  color: black;
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+}
+
+.extra {
+  grid-area: extra;
+  background-color: #10b981;
+  color: white;
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+}
+
+.image {
+  grid-area: image;
+  background-color: #93c5fd;
+  color: black;
+  display: grid;
+  place-items: center;
+  min-height: 140px;
+}
+
+/* Mobile layout */
+.container {
+  grid-template-areas:
+    "header"
+    "menu"
+    "hero"
+    "main"
+    "banner"
+    "extra"
+    "image";
+}
+
+/* Tablet layout */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .container {
+    display: grid;
+    grid-template-columns: 35% 65%;     /* izquierda: menú  / derecha: contenido */
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-auto-rows: minmax(80px, auto); /* asegura alturas consistentes */
+    grid-template-areas:
+      "header header"
+      "hero   hero"
+      "menu   main"
+      "menu   banner"
+      "menu   extra"
+      "menu   image";
+    gap: 0; /* Ensure no gaps in tablet layout */
+  }
+
+  /* Asegurar que cada bloque usa su área y no arrastre widths previos */
+  .header { grid-area: header; }
+  .menu   { grid-area: menu;   align-self: stretch; } /* que se estire toda la columna */
+  .hero   { grid-area: hero;   min-height: 40vh; }
+  .main   { grid-area: main;   min-height: 26vh; }
+  .banner { grid-area: banner; min-height: 120px; }
+  .extra  { grid-area: extra;  min-height: 120px; }
+  .image  { grid-area: image;  min-height: 120px; }
+
+  /* Reset defensivo por si algún estilo previo rompe el grid en tablet */
+  .container > * { width: auto; float: none; position: static; }
+}
+
+/* Desktop layout */
+@media (min-width: 1024px) {
+  .container {
+    display: grid;
+    grid-template-columns: 2fr 0.4fr 1fr; /* main | spacer | right */
+    grid-template-areas:
+      "header menu  menu"
+      "hero   hero  hero"
+      "main   .     image"
+      "main   .     extra"
+      "banner banner banner";
+    column-gap: 20px;
+    row-gap: 16px;
+    gap: 0; /* Ensure no gaps in desktop layout */
+  }
+  body { background: #fff; } /* asegura spacer blanco */
+}
